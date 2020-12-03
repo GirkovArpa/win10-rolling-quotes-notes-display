@@ -1,0 +1,48 @@
+const DEBUGGING = true;
+
+DEBUGGING && view.connectToInspector && view.connectToInspector(rootElement, inspectorIpAddress);
+
+$(#help) << event click {
+  view.msgbox(#question,
+    "App can load quote txt files where each quote is separated by 2 line breaks (i.e. single blank line between)\nPress ? to close help\nPress up/down arrows to move to prev/next notification\nIt uses Sciter Engine (https://sciter.com),\ncopyright © Terra Informatica Software, Inc.",
+    "Help"
+  );
+}
+
+// https://stackoverflow.com/a/13163436/13378247
+function mod(n, m) {
+    const remain = n % m;
+    return remain >= 0 ? remain : remain + m;
+};
+
+const lines = [];
+
+function updateQuote(delta, reset) {
+  if (! lines.length) return true;
+  const index = reset ? 0 : lines.indexOf($(#curr).html) + delta;
+  $(#curr).html = lines[mod(index, lines.length)];
+  return true;
+}
+
+self.timer(5s, :: updateQuote(1, false));
+
+$(#prev) << event click {
+  updateQuote(-1, false);
+}
+
+$(#next) << event click {
+  updateQuote(1, false);
+}
+
+$(#open) << event click {
+  const filename = view.selectFile(#open, "TXT Files (*.txt)|*.txt");
+  if (! filename) return;
+  lines.length = 0;
+  const file = Stream.openFile(filename, "r");
+  while (true) {
+    const line = file.readln();
+    if (line == undefined) break;
+    if (line) lines.push(line);
+  }
+  updateQuote(0, true);
+}

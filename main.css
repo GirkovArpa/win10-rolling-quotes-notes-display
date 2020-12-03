@@ -1,0 +1,88 @@
+/* Overall */
+
+html, body {
+  height: 100dip;
+  width: 800dip;
+  margin: 0dip;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 20dip;
+}
+
+body {
+  flow: horizontal;
+  background-color: #000000;
+  color: #FFFFFF;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: middle;
+}
+
+#quote-zone, #curr {
+  width: *;
+  text-align: center;
+}
+
+/*Drag zone*/
+
+#drag-zone {
+  flow: vertical;
+  width: 20dip;
+  height: 100dip;
+  background-color: #2C2C2C;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#bar::after {
+  content: '|';
+  font-size: 30dip;
+}
+
+/*Functions*/
+
+#functions {
+  flow: horizontal;
+  width: 140dip;
+  height: 100dip;
+  vertical-align: middle;
+}
+
+#functions div {
+  height: 25dip;
+  width: 25dip;
+  font-size: 15dip;
+  text-align: center;
+}
+
+#close::after {
+  content: '✕';
+}
+
+#open::after {
+  content: '🗁';
+}
+
+#help::after {
+  content: '?'
+}
+
+#prev::after {
+  content: '▲';
+}
+
+#next::after {
+  content: '▼';
+}
+
+/*Notes zone*/
+
+#quote-zone {
+  max-width: 80%;
+}
+
+/*Generic*/
+
+.button:hover {
+  filter: brightness(50%);
+}
